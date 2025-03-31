@@ -1,0 +1,224 @@
+/* Some Common CSS*/
+
+* {
+    box-sizing: border-box;
+}
+
+.nopadding {
+    padding: 0 !important;
+    margin: 0 !important;
+ }
+
+/* For Desktop */
+@media only screen and (min-width: 1025px) {
+    body {
+        background-color: #FFFFFF;
+    }
+
+    #menuHeader {
+        margin-bottom:20px;
+        background: #b31b1b;
+        color: #FFFFFF;
+        padding-bottom: 10px;
+	padding-top: 10px;
+    }
+
+    .fullName {
+	margin: 0 auto;
+	text-align: center;
+    }
+
+    .whatIDo {
+	margin: 0 auto;
+	text-align: center;
+    }
+
+    .profileImage {
+        height: 200px;
+    }
+
+    #articleImg {
+        width: 200px;
+    }
+
+    #footer {
+        margin-bottom: 0;
+        background-color: #222222;
+        color: #FFFFFF;
+    }
+    #triviaFeedback {
+        color: #0000FF;
+    }
+
+    #toggleNightmode {
+        display: inline-block;
+        float: right;
+        vertical-align: middle;
+        padding-top: 15px;
+        right: 10px;
+    }
+}
+
+/*For Tablet*/
+@media only screen and (min-width: 668px) and (max-width: 1024px){
+    #logo {
+        width: 50px;
+        display: inline-block;
+        height: 100%;
+        vertical-align: middle;
+    }
+
+    #ulMainMenu {
+        padding-top: 10px;
+    }
+
+    #ulMainMenu li {
+        display: inline;
+        margin-right: 10px;
+    }
+    
+    #ulMainMenu a {
+        color: #FFFFFF;
+    }
+    #topHeader {
+        height: 60px;
+        background-color: #222222;
+        color: #FFFFFF;
+    }
+    
+    #topHeader h4 {
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    #subHeader {
+        background-color: #EEEEEE;
+    }
+    #menuHeader {
+        margin-bottom:0;
+        background: #b31b1b;
+        color: #FFFFFF;
+        height: 65px;
+    }
+
+    .profileImage {
+        height: 150px;
+    }
+
+    #articleImg {
+        width: 200px;
+    }
+
+    #footer {
+        margin-bottom: 0;
+        background-color: #222222;
+        color: #FFFFFF;
+    }
+    #triviaFeedback {
+        color: #0000FF;
+    }
+
+    #toggleNightmode {
+        display: inline-block;
+        float: right;
+        vertical-align: middle;
+        padding-top: 15px;
+        right: 30px;
+    }
+    .fullName {
+	text-align: center;
+    }
+
+    .whatIDo {
+	text-align: center;
+    }
+}
+/* For Mobile */
+@media only screen and (max-width: 667px) {
+    #logo {
+        width: 50px;
+        display: inline-block;
+        vertical-align: middle;
+    }
+    
+    #menuHeader {
+        margin-bottom:0;
+        background: #b31b1b;
+        color: #FFFFFF;
+        height: 65px !important;
+    }
+
+    .fullName {
+	text-align: center;
+    }
+
+    .whatIDo {
+	text-align: center;
+    }
+
+    #ulMainMenu {
+        padding-top: 0;
+        font-size: 0.9em;
+    }
+
+    #ulMainMenu li {
+        display: inline;
+        margin-right: 10px;
+    }
+    
+    #ulMainMenu a {
+        color: #FFFFFF;
+    }
+    #topHeader {
+        height: 45px;
+        background-color: #222222;
+        color: #FFFFFF;
+    }
+    
+    #topHeader h4 {
+        display: inline-block;
+        vertical-align: middle;
+        font-size: 1.0em;
+    }
+
+    #subHeader {
+        display: none;
+        background-color: #EEEEEE;
+    }
+    #menuHeader {
+        margin-bottom:0;
+        background: #b31b1b;
+        color: #FFFFFF;
+        height: 50px;
+    }
+
+    .profileImage {
+        width: 100%;
+    }
+
+    #articleImg {
+        width: 100%;
+    }
+
+    #footer {
+        margin-bottom: 0;
+        background-color: #222222;
+        color: #FFFFFF;
+    }
+    #triviaFeedback {
+        color: #0000FF;
+    }
+
+    #toggleNightmode {
+        display: inline-block;
+        float: right;
+        vertical-align: middle;
+        padding-top: 15px;
+        right: 10px;
+    }
+
+    /*Do not show the report.html menu on mobile, not needed*/
+    #reportMenu {
+        display: none !important
+    }
+}
