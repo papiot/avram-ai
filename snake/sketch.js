@@ -32,6 +32,25 @@ function setup() {
     centerCanvas()
     background(200)
     currentGameState = GameState.MENU
+
+    drawGrid()
+
+}
+
+function drawGrid() {
+    // draw the grid
+    push()
+        strokeWeight(1)
+        color(0,0,0)
+        line(0, 40, canvas.width, 40)
+        for (let i = 40; i <= 600; i+=10) {
+            line(0, i, canvas.width, i)
+        }
+
+        for (let i = 0; i <= 800; i += 10) {
+            line(i, 40, i, canvas.height)
+        }
+    pop()
 }
 
 function draw() {
@@ -51,6 +70,8 @@ function draw() {
         }
         stateChanged = false
     }
+
+    
 }
 
 function removeMenuButtons() {
