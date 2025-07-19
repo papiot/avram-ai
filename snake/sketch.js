@@ -47,7 +47,7 @@ let grid = Array(4560).fill(CellState.EMPTY)
 let snakeDirection = SnakeDirection.SOUTH
 
 let lastUpdateTime = 0
-const updateInterval = 1000 // 1s
+const updateInterval = 200 // 1s
 
 function windowResized() {
     centerCanvas()
@@ -118,9 +118,9 @@ function occupy(x, y, value) {
 function drawSnake() {
     for (var i = 0; i < grid.length; i++) {
         const c = grid[i]
-        if (c === CellState.EMPTY) {
-            continue
-        }
+        // if (c === CellState.EMPTY) {
+        //     continue
+        // }
 
         const x = i % 80;
         const y = Math.floor(i / 80);
@@ -140,8 +140,36 @@ function drawSnake() {
             // Blue for wall
             fill(0,0,255)
         }
+        if (c === CellState.EMPTY) {
+            // make it empty
+            fill(200,200,200)
+        }
 
         square(pixelX, pixelY+40, 10)
+    }
+}
+
+function keyPressed() {
+    // Arrow keys (use keyCode)
+    if (keyCode === LEFT_ARROW || key === 'a' || key === 'A') {
+        if (snakeDirection !== SnakeDirection.EAST) {
+            snakeDirection = SnakeDirection.WEST
+        }
+    }
+    if (keyCode === RIGHT_ARROW || key === 'd' || key === 'D') {
+        if (snakeDirection !== SnakeDirection.WEST) {
+            snakeDirection = SnakeDirection.EAST
+        }
+    }
+    if (keyCode === UP_ARROW || key === 'w' || key === 'W') {
+        if (snakeDirection !== SnakeDirection.SOUTH) {
+            snakeDirection = SnakeDirection.NORTH
+        }
+    }
+    if (keyCode === DOWN_ARROW || key === 's' || key === 'S') {
+        if (snakeDirection !== SnakeDirection.NORTH) {
+            snakeDirection = SnakeDirection.SOUTH
+        }
     }
 }
 
@@ -171,6 +199,10 @@ function draw() {
     }    
 }
 
+function coordsToIndex(x, y, width = 80) {
+  return y * width + x;
+}
+
 function updateGrid() {
     // highlight next head
     let nextHeadX
@@ -180,33 +212,50 @@ function updateGrid() {
         nextHeadY = snakeHead.y + 1
         occupy(nextHeadX, nextHeadY, CellState.SNAKE)
     }
+    if (snakeDirection === SnakeDirection.NORTH) {
+        nextHeadX = snakeHead.x
+        nextHeadY = snakeHead.y - 1
+        occupy(nextHeadX, nextHeadY, CellState.SNAKE)
+    }
+    if (snakeDirection === SnakeDirection.EAST) {
+        nextHeadX = snakeHead.x+1
+        nextHeadY = snakeHead.y
+        occupy(nextHeadX, nextHeadY, CellState.SNAKE)
+    }
+    if (snakeDirection === SnakeDirection.WEST) {
+        nextHeadX = snakeHead.x-1
+        nextHeadY = snakeHead.y
+        occupy(nextHeadX, nextHeadY, CellState.SNAKE)
+    }
     snakeHead.x = nextHeadX
     snakeHead.y = nextHeadY
 
     // Regardless of direction, remove the tail
     let nextTailX
     let nextTailY
-
-    const x = snakeTail.x % 80;
-    const y = Math.floor(snakeTail.x / 80);
+    let index = 0
 
     // Check NORTH
-    if (grid[snakeTail.y-1] === CellState.SNAKE) {
+    index = coordsToIndex(snakeTail.x, snakeTail.y-1)
+    if (grid[index] === CellState.SNAKE) {
         nextTailX = snakeTail.x
         nextTailY = snakeTail.y-1
     }
     // Check SOUTH
-    if (grid[snakeTail.y+1] === CellState.SNAKE) {
+    index = coordsToIndex(snakeTail.x, snakeTail.y+1)
+    if (grid[index] === CellState.SNAKE) {
         nextTailX = snakeTail.x
         nextTailY = snakeTail.y+1
     }
     // Check WEST
-    if (grid[snakeTail.x-1] === CellState.SNAKE) {
+    index = coordsToIndex(snakeTail.x-1, snakeTail.y)
+    if (grid[index] === CellState.SNAKE) {
         nextTailX = snakeTail.x-1
         nextTailY = snakeTail.y
     }
     // Check EAST
-    if (grid[snakeTail.x+1] === CellState.SNAKE) {
+    index = coordsToIndex(snakeTail.x+1, snakeTail.y)
+    if (grid[index] === CellState.SNAKE) {
         nextTailX = snakeTail.x+1
         nextTailY = snakeTail.y
     }
