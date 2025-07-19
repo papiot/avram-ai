@@ -16,6 +16,8 @@ let endGameButton
 let currentGameState
 let stateChanged = true
 
+let grid = Array(4560).fill(0)
+
 function windowResized() {
     centerCanvas()
     updateButtonPosition(startGameButton)
@@ -35,6 +37,36 @@ function setup() {
 
     drawGrid()
 
+    // occupy(x,y)
+    occupy(0,0)
+    //occupy(79,0)
+    occupy(0,1)
+    // occupy(0,55)
+    // occupy(79,55)
+
+    push()
+        drawSnake()
+    pop()
+
+}
+// 76 x 60 (width x height) (x, y)
+function occupy(x, y) {
+    grid[y * 80 + x] = 1    
+}
+
+function drawSnake() {
+    for (var i = 0; i < grid.length; i++) {
+        
+        if (grid[i] === 1) {
+            fill(255,0,0)
+            const x = i % 80;
+            const y = Math.floor(i / 80);
+  
+            const pixelX = x * 10;
+            const pixelY = y * 10;
+            square(pixelX, pixelY+40, 10)
+        }
+    }
 }
 
 function drawGrid() {
@@ -43,10 +75,12 @@ function drawGrid() {
         strokeWeight(1)
         color(0,0,0)
         line(0, 40, canvas.width, 40)
+        // 60 in width
         for (let i = 40; i <= 600; i+=10) {
             line(0, i, canvas.width, i)
         }
 
+        // 76 in height
         for (let i = 0; i <= 800; i += 10) {
             line(i, 40, i, canvas.height)
         }
