@@ -102,8 +102,7 @@ function setup() {
         occupy(i, 55, CellState.WALL)
     }
 
-    // Food
-    occupy(Math.floor(random(0, MAX_X+1)), Math.floor(random(0, MAX_Y+1)), CellState.FOOD)
+    addFood()
 
     push()
         drawSnake()
@@ -113,6 +112,11 @@ function setup() {
 // 76 x 60 (width x height) (x, y)
 function occupy(x, y, value) {
     grid[y * 80 + x] = value    
+}
+
+function addFood() {
+    // Food
+    occupy(Math.floor(random(0, MAX_X+1)), Math.floor(random(0, MAX_Y+1)), CellState.FOOD)
 }
 
 function drawSnake() {
@@ -210,25 +214,36 @@ function updateGrid() {
     if (snakeDirection === SnakeDirection.SOUTH) {
         nextHeadX = snakeHead.x
         nextHeadY = snakeHead.y + 1
-        occupy(nextHeadX, nextHeadY, CellState.SNAKE)
     }
     if (snakeDirection === SnakeDirection.NORTH) {
         nextHeadX = snakeHead.x
         nextHeadY = snakeHead.y - 1
-        occupy(nextHeadX, nextHeadY, CellState.SNAKE)
     }
     if (snakeDirection === SnakeDirection.EAST) {
         nextHeadX = snakeHead.x+1
         nextHeadY = snakeHead.y
-        occupy(nextHeadX, nextHeadY, CellState.SNAKE)
     }
     if (snakeDirection === SnakeDirection.WEST) {
         nextHeadX = snakeHead.x-1
         nextHeadY = snakeHead.y
-        occupy(nextHeadX, nextHeadY, CellState.SNAKE)
+        
     }
-    snakeHead.x = nextHeadX
-    snakeHead.y = nextHeadY
+    let i = coordsToIndex(nextHeadX, nextHeadY)
+    if (grid[i] === CellState.FOOD) {
+        grid[i] = CellState.SNAKE
+        addFood()
+        occupy(nextHeadX, nextHeadY, CellState.SNAKE)
+        snakeHead.x = nextHeadX
+        snakeHead.y = nextHeadY
+        return;
+    } else {
+        occupy(nextHeadX, nextHeadY, CellState.SNAKE)
+        snakeHead.x = nextHeadX
+        snakeHead.y = nextHeadY 
+    }
+    
+
+    
 
     // Regardless of direction, remove the tail
     let nextTailX
@@ -272,7 +287,6 @@ function updateCanvas() {
     push()
         drawSnake()
     pop()
-    console.log("tick...")
     if (stateChanged) {
         removeMenuButtons()
         if (currentGameState === GameState.MENU) {
